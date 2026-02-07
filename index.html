@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Just One Question ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+      max-width: 360px;
+      animation: fadeIn 1.2s ease;
+    }
+
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+
+    h1 { color: #ff4d6d; }
+    p { font-size: 17px; color: #444; line-height: 1.5; }
+
+
+    .buttons {
+      margin-top: 25px;
+      position: relative;
+      height: 140px;
+    }
+
+
+    button {
+      padding: 12px 26px;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+    }
+
+
+    #noBtn {
+      background: #ddd;
+      position: absolute;
+    }
+
+
+    .message {
+      font-size: 14px;
+      color: #ff4d6d;
+      margin-top: 10px;
+      height: 20px;
+    }
+
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: float 4s linear infinite;
+    }
+
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- 🎵 Background Music -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="tu-agar-meri.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <div class="container" id="card">
+    <h1>Hey You ❤️</h1>
+    <p>
+      Somewhere between ordinary days<br>
+      and random conversations,<br>
+      you quietly became my favourite person 🥹
+    </p>
+
+
+    <p>
+      You are my comfort, my laughter,<br>
+      and the place my heart feels at home 💕
+    </p>
+
+
+    <p>
+      So today, with all my feelings<br>
+      and a slightly nervous smile 😅
+    </p>
+
+
+    <h2>Will you be mine forever? 💍</h2>
+
+
+    <div class="buttons">
+      <button id="yesBtn" onclick="firstYes()">YES 😍</button>
+      <button id="noBtn" onmouseover="moveNo()">NO 🙈</button>
+    </div>
+
+
+    <div class="message" id="funnyMsg"></div>
+  </div>
+
+
+  <div class="hearts" id="hearts"></div>
+
+
+  <script>
+    const funnyMessages = [
+      "Nice try 😏",
+      "NO is on vacation 😂",
+      "That button refuses to cooperate 😌",
+      "Destiny says only YES ❤️",
+      "You know what to do 😍"
+    ];
+
+
+    document.body.addEventListener('click', () => {
+      document.getElementById("bgMusic").play();
+    });
+
+
+    function moveNo() {
+      const noBtn = document.getElementById("noBtn");
+      const msg = document.getElementById("funnyMsg");
+      noBtn.style.left = Math.random() * 250 + "px";
+      noBtn.style.top = Math.random() * 90 + "px";
+      msg.innerText = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+    }
+
+
+    // First YES → Fake confirmation
+    function firstYes() {
+      document.getElementById("card").innerHTML = `
+        <h1>Wait… 😳</h1>
+        <p>
+          This is a lifetime decision 😌<br>
+          Are you REALLY sure you want to say YES to me?
+        </p>
+        <div class="buttons">
+          <button id="yesBtn" onclick="finalYes()">YES, 100% 💖</button>
+          <button id="noBtn" onmouseover="moveNo()">Umm… NO 🙈</button>
+        </div>
+        <div class="message" id="funnyMsg"></div>
+      `;
+    }
+
+
+    // Final YES → Celebration
+    function finalYes() {
+      document.getElementById("card").innerHTML = `
+        <h1>YAYYYY!!! 💍❤️</h1>
+        <p>
+          You just made my heart the happiest 🥹<br><br>
+          Thank you for choosing me,<br>
+          for loving me,<br>
+          and for saying YES to forever 💕
+        </p>
+        <p>
+          I promise to stand by you,<br>
+          laugh with you,<br>
+          and steal your food forever 😌🍕
+        </p>
+        <h2>I Love You 😘</h2>
+        <p style="font-size:14px;">— Yours, always ❤️</p>
+      `;
+      createHearts();
+    }
+
+
+    function createHearts() {
+      const hearts = document.getElementById("hearts");
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 22 + 14) + "px";
+        hearts.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }, 250);
+    }
+  </script>
+
+
+</body>
+</html>
